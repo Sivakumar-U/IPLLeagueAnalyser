@@ -13,8 +13,8 @@ public class IPLAnalyser {
 
 	public static List<MostRunsCSV> iplCSVList;
 
-	public int loadCSVData(String indiaCensusCSVFilePath) throws IPLAnalyserException {
-		try (Reader reader = Files.newBufferedReader(Paths.get(indiaCensusCSVFilePath))) {
+	public int loadCSVData(String iplCSVFilePath) throws IPLAnalyserException {
+		try (Reader reader = Files.newBufferedReader(Paths.get(iplCSVFilePath))) {
 			ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
 			iplCSVList = csvBuilder.getCSVFileList(reader, MostRunsCSV.class);
 			return iplCSVList.size();
@@ -27,18 +27,28 @@ public class IPLAnalyser {
 		if (iplCSVList == null || iplCSVList.size() == 0) {
 			throw new IPLAnalyserException("NO_CENSUS_DATA", IPLAnalyserException.ExceptionType.NO_SUCH_FILE);
 		}
-		Comparator<MostRunsCSV> censusComparator = Comparator.comparing(census -> census.avg);
-		this.sort(censusComparator);
-		String sortedStateCensusJson = new Gson().toJson(this.iplCSVList);
-		return sortedStateCensusJson;
+		Comparator<MostRunsCSV> runsComparator = Comparator.comparing(census -> census.avg);
+		this.sort(runsComparator);
+		String sortedMostRunsJson = new Gson().toJson(this.iplCSVList);
+		return sortedMostRunsJson;
 	}
 
-	public void sort(Comparator<MostRunsCSV> censusComparator) {
+	public String getTopStrikingRates() throws IPLAnalyserException {
+		if (iplCSVList == null || iplCSVList.size() == 0) {
+			throw new IPLAnalyserException("NO_CENSUS_DATA", IPLAnalyserException.ExceptionType.NO_SUCH_FILE);
+		}
+		Comparator<MostRunsCSV> runsComparator = Comparator.comparing(census -> census.sr);
+		this.sort(runsComparator);
+		String sortedMostRunsJson = new Gson().toJson(this.iplCSVList);
+		return sortedMostRunsJson;
+	}
+
+	public void sort(Comparator<MostRunsCSV> runsComparator) {
 		for (int i = 0; i < iplCSVList.size(); i++) {
 			for (int j = 0; j < iplCSVList.size() - i - 1; j++) {
 				MostRunsCSV census1 = iplCSVList.get(j);
 				MostRunsCSV census2 = iplCSVList.get(j + 1);
-				if (censusComparator.compare(census1, census2) > 0) {
+				if (runsComparator.compare(census1, census2) > 0) {
 					iplCSVList.set(j, census2);
 					iplCSVList.set(j + 1, census1);
 				}
