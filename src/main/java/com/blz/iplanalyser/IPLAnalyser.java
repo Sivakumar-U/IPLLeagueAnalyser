@@ -180,6 +180,18 @@ public class IPLAnalyser {
 				.collect(Collectors.toList());
 	}
 
+	public List<MostWktsCSV> getBowlersMaximumWicketsWithBestBowlingAvgs(String csvFilePath)
+			throws IOException, IPLAnalyserException {
+		loadWktsCSVData(csvFilePath);
+		int playerWithWkts = iplWktsCSVList.stream().map(MostWktsCSV::getWkts).max(Integer::compare).get();
+		List<MostWktsCSV> playerWithMaxWkts = iplWktsCSVList.stream()
+				.filter(player -> player.getWkts() == playerWithWkts).collect(Collectors.toList());
+		double playerWithBestBowlingAvgs = playerWithMaxWkts.stream().map(MostWktsCSV::getAvg).max(Double::compare)
+				.get();
+		return playerWithMaxWkts.stream().filter(player -> player.getAvg() == playerWithBestBowlingAvgs)
+				.collect(Collectors.toList());
+	}
+
 	public void sort2(Comparator<MostWktsCSV> wktsComparator) {
 		for (int i = 0; i < iplWktsCSVList.size(); i++) {
 			for (int j = 0; j < iplWktsCSVList.size() - i - 1; j++) {

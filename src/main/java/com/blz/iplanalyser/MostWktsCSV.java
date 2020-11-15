@@ -63,4 +63,8 @@ public class MostWktsCSV {
 		return num5w;
 	}
 
+	public int getWkts() {
+		return wkts;
+	}
+
 }
