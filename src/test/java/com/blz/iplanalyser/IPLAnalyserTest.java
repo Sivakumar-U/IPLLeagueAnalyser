@@ -96,4 +96,16 @@ public class IPLAnalyserTest {
 		}
 	}
 
+	@Test
+	public void givenMostWktsCSV_ShouldReturnTopStrikeRatesOfBowlers() {
+		String sortedData = null;
+		try {
+			sortedData = iplAnalyser.getTopStrikingRatesOfBowler(MOST_WKTS_FILE_PATH);
+			MostWktsCSV[] wktsCSV = new Gson().fromJson(sortedData, MostWktsCSV[].class);
+			Assert.assertEquals(120, wktsCSV[wktsCSV.length - 1].avg, DELTA);
+		} catch (IPLAnalyserException ex) {
+			ex.printStackTrace();
+		}
+	}
+
 }
