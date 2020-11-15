@@ -154,6 +154,20 @@ public class IPLAnalyser {
 		return playerWithBestEconomy;
 	}
 
+	public List<MostWktsCSV> getBestStrikingRatesWith5WAnd4W(String csvFilePath)
+			throws IOException, IPLAnalyserException {
+		loadWktsCSVData(csvFilePath);
+		int playerWith4wAnd5w = iplWktsCSVList.stream().map(player -> (player.getnumber4w() + player.getnumber5w()))
+				.max(Integer::compare).get();
+		List<MostWktsCSV> playerWithBest4wAnd5w = iplWktsCSVList.stream()
+				.filter(player -> player.getnumber4w() + player.getnumber5w() == playerWith4wAnd5w)
+				.collect(Collectors.toList());
+		double playerWithBestStrikeRate = playerWithBest4wAnd5w.stream().map(MostWktsCSV::getSr).max(Double::compare)
+				.get();
+		return playerWithBest4wAnd5w.stream().filter(player -> player.getSr() == playerWithBestStrikeRate)
+				.collect(Collectors.toList());
+	}
+
 	public void sort2(Comparator<MostWktsCSV> wktsComparator) {
 		for (int i = 0; i < iplWktsCSVList.size(); i++) {
 			for (int j = 0; j < iplWktsCSVList.size() - i - 1; j++) {

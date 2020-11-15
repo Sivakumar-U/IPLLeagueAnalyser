@@ -47,4 +47,20 @@ public class MostWktsCSV {
 		return econ;
 	}
 
+	public double getSr() {
+		return sr;
+	}
+
+	public double getAvg() {
+		return avg;
+	}
+
+	public int getnumber4w() {
+		return num4w;
+	}
+
+	public int getnumber5w() {
+		return num5w;
+	}
+
 }
