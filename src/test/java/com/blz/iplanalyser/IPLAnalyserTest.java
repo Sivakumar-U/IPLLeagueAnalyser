@@ -36,4 +36,16 @@ public class IPLAnalyserTest {
 		}
 	}
 
+	@Test
+	public void givenMostRunsCSV_ShouldReturnTopStrikingRatesOfBatsman() {
+		try {
+			iplAnalyser.loadCSVData(MOST_RUNS_FILE_PATH);
+			String sortedData = iplAnalyser.getTopStrikingRates();
+			MostRunsCSV[] mostRunsCSV = new Gson().fromJson(sortedData, MostRunsCSV[].class);
+			Assert.assertEquals(333.33, mostRunsCSV[mostRunsCSV.length - 1].avg, DELTA);
+		} catch (IPLAnalyserException ex) {
+			ex.printStackTrace();
+		}
+	}
+
 }
