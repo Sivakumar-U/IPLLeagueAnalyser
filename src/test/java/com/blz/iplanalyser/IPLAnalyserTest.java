@@ -152,4 +152,11 @@ public class IPLAnalyserTest {
 				iplAnalyser.maximum100sWithBestBattingAverage(MOST_RUNS_FILE_PATH).get(0).player);
 	}
 
+	@Test
+	public void givenMostRunsCSV_ShouldReturn_WhoHitZero100sAnd50s_ButHadBestBattingAvgs()
+			throws IOException, IPLAnalyserException {
+		Assert.assertEquals("Marcus Stoinis",
+				iplAnalyser.getWhoHitZero100sAnd50sButBestBattingAvgs(MOST_RUNS_FILE_PATH).get(0).player);
+	}
+
 }
