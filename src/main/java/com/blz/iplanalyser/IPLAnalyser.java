@@ -134,7 +134,7 @@ public class IPLAnalyser {
 		String sortedWktsJson = new Gson().toJson(this.iplWktsCSVList);
 		return sortedWktsJson;
 	}
-	
+
 	public String getTopStrikingRatesOfBowler(String csvFilePath) throws IPLAnalyserException {
 		loadWktsCSVData(csvFilePath);
 		if (iplWktsCSVList == null || iplWktsCSVList.size() == 0) {
@@ -146,6 +146,13 @@ public class IPLAnalyser {
 		return sortedWktsJson;
 	}
 
+	public List<MostWktsCSV> getBowlersHadBestEconomy(String csvFilePath) throws IOException, IPLAnalyserException {
+		loadWktsCSVData(csvFilePath);
+		List<MostWktsCSV> playerWithBestEconomy = iplWktsCSVList.stream()
+				.sorted(Comparator.comparingDouble(MostWktsCSV::getEcon)).collect(Collectors.toList());
+		Collections.reverse(playerWithBestEconomy);
+		return playerWithBestEconomy;
+	}
 
 	public void sort2(Comparator<MostWktsCSV> wktsComparator) {
 		for (int i = 0; i < iplWktsCSVList.size(); i++) {

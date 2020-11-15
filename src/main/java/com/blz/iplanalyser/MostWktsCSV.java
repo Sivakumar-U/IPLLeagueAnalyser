@@ -43,4 +43,8 @@ public class MostWktsCSV {
 	@CsvBindByName(column = "5w")
 	public int num5w;
 
+	public double getEcon() {
+		return econ;
+	}
+
 }
