@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 
@@ -41,6 +43,24 @@ public class IPLAnalyser {
 		this.sort(runsComparator);
 		String sortedMostRunsJson = new Gson().toJson(this.iplCSVList);
 		return sortedMostRunsJson;
+	}
+
+	public List<MostRunsCSV> getTop4sCricketer(String csvFilePath) throws IOException, IPLAnalyserException {
+		loadCSVData(csvFilePath);
+		List<MostRunsCSV> playerWithMax4s = iplCSVList.stream()
+				.sorted((player1, player2) -> Double.compare(player1.getNum4s(), player2.getNum4s()))
+				.collect(Collectors.toList());
+		Collections.reverse(playerWithMax4s);
+		return playerWithMax4s;
+	}
+
+	public List<MostRunsCSV> getTop6sCricketer(String csvFilePath) throws IOException, IPLAnalyserException {
+		loadCSVData(csvFilePath);
+		List<MostRunsCSV> playerWithMax6s = iplCSVList.stream()
+				.sorted((player1, player2) -> Double.compare(player1.getNum6s(), player2.getNum6s()))
+				.collect(Collectors.toList());
+		Collections.reverse(playerWithMax6s);
+		return playerWithMax6s;
 	}
 
 	public void sort(Comparator<MostRunsCSV> runsComparator) {
