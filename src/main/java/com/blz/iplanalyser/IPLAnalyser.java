@@ -62,7 +62,7 @@ public class IPLAnalyser {
 		Collections.reverse(playerWithMax6s);
 		return playerWithMax6s;
 	}
-	
+
 	public List<MostRunsCSV> getBestStrikingRatesWith6sAnd4s(String csvFilePath)
 			throws IOException, IPLAnalyserException {
 		loadCSVData(csvFilePath);
@@ -74,6 +74,18 @@ public class IPLAnalyser {
 		double playerWithBestStrikerate = playerWithBest6s4s.stream().map(MostRunsCSV::getSr).max(Double::compare)
 				.get();
 		return playerWithBest6s4s.stream().filter(player -> player.getSr() == playerWithBestStrikerate)
+				.collect(Collectors.toList());
+	}
+
+	public List<MostRunsCSV> getGreatAveragesWithBestStrikingRates(String csvFilePath)
+			throws IOException, IPLAnalyserException {
+		loadCSVData(csvFilePath);
+		double bestAvgs = iplCSVList.stream().map(MostRunsCSV::getAvg).max(Double::compare).get();
+		List<MostRunsCSV> playerWithBestAvgs = iplCSVList.stream().filter(player -> player.getAvg() == bestAvgs)
+				.collect(Collectors.toList());
+		double playerWithBestStrikerate = playerWithBestAvgs.stream().map(MostRunsCSV::getSr).max(Double::compare)
+				.get();
+		return playerWithBestAvgs.stream().filter(player -> player.getSr() == playerWithBestStrikerate)
 				.collect(Collectors.toList());
 	}
 
