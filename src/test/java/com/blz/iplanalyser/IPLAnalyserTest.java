@@ -121,4 +121,11 @@ public class IPLAnalyserTest {
 				new IPLAnalyser().getBestStrikingRatesWith5WAnd4W(MOST_WKTS_FILE_PATH).get(0).player);
 	}
 
+	@Test
+	public void givenMostWktsCSV_ShouldReturnGreatBowlingAveragesWithBestStrikingRates()
+			throws IOException, IPLAnalyserException {
+		Assert.assertEquals("Krishnappa Gowtham",
+				iplAnalyser.getWhoHadBowlingAvgsWithBestStrikingRates(MOST_WKTS_FILE_PATH).get(0).player);
+	}
+
 }
