@@ -168,6 +168,18 @@ public class IPLAnalyser {
 				.collect(Collectors.toList());
 	}
 
+	public List<MostWktsCSV> getWhoHadBowlingAvgsWithBestStrikingRates(String csvFilePath)
+			throws IOException, IPLAnalyserException {
+		loadWktsCSVData(csvFilePath);
+		double playerWithAvgs = iplWktsCSVList.stream().map(MostWktsCSV::getAvg).max(Double::compare).get();
+		List<MostWktsCSV> playerWithBestAvgs = iplWktsCSVList.stream()
+				.filter(player -> player.getAvg() == playerWithAvgs).collect(Collectors.toList());
+		double playerWithBestStrikeRate = playerWithBestAvgs.stream().map(MostWktsCSV::getSr).max(Double::compare)
+				.get();
+		return playerWithBestAvgs.stream().filter(player -> player.getSr() == playerWithBestStrikeRate)
+				.collect(Collectors.toList());
+	}
+
 	public void sort2(Comparator<MostWktsCSV> wktsComparator) {
 		for (int i = 0; i < iplWktsCSVList.size(); i++) {
 			for (int j = 0; j < iplWktsCSVList.size() - i - 1; j++) {
