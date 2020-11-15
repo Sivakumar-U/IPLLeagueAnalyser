@@ -227,6 +227,16 @@ public class IPLAnalyser {
 		return allRounder;
 	}
 
+	public List<MostRunsCSV> maximum100sWithBestBattingAverage(String csvFilePath)
+			throws IOException, IPLAnalyserException {
+		loadCSVData(csvFilePath);
+		int century = iplRunsCSVList.stream().map(MostRunsCSV::getCentury).max(Integer::compare).get();
+		List<MostRunsCSV> maxCentury = iplRunsCSVList.stream().filter(player -> player.getCentury() == century)
+				.collect(Collectors.toList());
+		double battingAvg = maxCentury.stream().map(MostRunsCSV::getAvg).max(Double::compare).get();
+		return maxCentury.stream().filter(player -> player.getAvg() == battingAvg).collect(Collectors.toList());
+	}
+
 	public void sort2(Comparator<MostWktsCSV> wktsComparator) {
 		for (int i = 0; i < iplWktsCSVList.size(); i++) {
 			for (int j = 0; j < iplWktsCSVList.size() - i - 1; j++) {

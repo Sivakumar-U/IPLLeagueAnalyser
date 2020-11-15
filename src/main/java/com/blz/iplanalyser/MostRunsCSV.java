@@ -66,6 +66,10 @@ public class MostRunsCSV {
 		return runs;
 	}
 
+	public int getCentury() {
+		return number100;
+	}
+
 	@Override
 	public String toString() {
 		return "IPLMostRunsCSV [pos=" + pos + ", player=" + player + ", mat=" + mat + ", inns=" + inns + ", no=" + no
