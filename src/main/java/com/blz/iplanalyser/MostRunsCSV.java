@@ -62,6 +62,10 @@ public class MostRunsCSV {
 		return avg;
 	}
 
+	public int getRuns() {
+		return runs;
+	}
+
 	@Override
 	public String toString() {
 		return "IPLMostRunsCSV [pos=" + pos + ", player=" + player + ", mat=" + mat + ", inns=" + inns + ", no=" + no
