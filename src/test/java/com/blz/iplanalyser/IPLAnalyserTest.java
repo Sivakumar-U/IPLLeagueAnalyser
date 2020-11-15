@@ -108,4 +108,10 @@ public class IPLAnalyserTest {
 		}
 	}
 
+	@Test
+	public void givenMostWktsCSV_ShouldReturnBestBowlingEconomy() throws IOException, IPLAnalyserException {
+		Assert.assertEquals("Ben Cutting",
+				new IPLAnalyser().getBowlersHadBestEconomy(MOST_WKTS_FILE_PATH).get(0).player);
+	}
+
 }
