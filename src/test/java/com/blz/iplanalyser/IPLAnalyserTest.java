@@ -72,4 +72,10 @@ public class IPLAnalyserTest {
 				new IPLAnalyser().getGreatAveragesWithBestStrikingRates(MOST_RUNS_FILE_PATH).get(0).player);
 	}
 
+	@Test
+	public void givenMostRunsCSV_ShouldReturnWhoHitMaxRuns_WithBestAvgs() throws IOException, IPLAnalyserException {
+		Assert.assertEquals("David Warner ",
+				new IPLAnalyser().getMaximumRunsWithBestAverages(MOST_RUNS_FILE_PATH).get(0).player);
+	}
+
 }
