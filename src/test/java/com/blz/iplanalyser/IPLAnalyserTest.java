@@ -1,8 +1,6 @@
 package com.blz.iplanalyser;
 
 import java.io.IOException;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -11,7 +9,7 @@ import com.google.gson.Gson;
 
 public class IPLAnalyserTest {
 
-	public static final String MOST_RUNS_FILE_PATH = "C:\\Users\\Siva Reddy\\MostRuns.csv";
+	private static final String MOST_RUNS_FILE_PATH = "C:\\Users\\Siva Reddy\\MostRuns.csv";
 	private static final double DELTA = 1e-15;
 
 	private static IPLAnalyser iplAnalyser;
@@ -65,6 +63,13 @@ public class IPLAnalyserTest {
 	public void givenMostRunsCSV_ShouldReturnBestStrikingRates_With6sAnd4s() throws IOException, IPLAnalyserException {
 		Assert.assertEquals("Andre Russell",
 				new IPLAnalyser().getBestStrikingRatesWith6sAnd4s(MOST_RUNS_FILE_PATH).get(0).player);
+	}
+
+	@Test
+	public void givenMostRunsCSV_ShouldReturnbestStrikingRatesWithBestAverages()
+			throws IOException, IPLAnalyserException {
+		Assert.assertEquals("MS Dhoni",
+				new IPLAnalyser().getGreatAveragesWithBestStrikingRates(MOST_RUNS_FILE_PATH).get(0).player);
 	}
 
 }
