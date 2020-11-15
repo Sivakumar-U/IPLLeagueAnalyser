@@ -53,14 +53,18 @@ public class IPLAnalyserTest {
 
 	@Test
 	public void givenMostRunsCSV_ShouldReturnMax4sCricketer() throws IOException, IPLAnalyserException {
-		List<MostRunsCSV> lst = new IPLAnalyser().getTop4sCricketer(MOST_RUNS_FILE_PATH);
 		Assert.assertEquals("Shikhar Dhawan", new IPLAnalyser().getTop4sCricketer(MOST_RUNS_FILE_PATH).get(0).player);
 	}
 
 	@Test
 	public void givenMostRunsCSV_ShouldReturnMax6sCricketer() throws IOException, IPLAnalyserException {
-		List<MostRunsCSV> lst = new IPLAnalyser().getTop6sCricketer(MOST_RUNS_FILE_PATH);
 		Assert.assertEquals("Andre Russell", new IPLAnalyser().getTop6sCricketer(MOST_RUNS_FILE_PATH).get(0).player);
+	}
+
+	@Test
+	public void givenMostRunsCSV_ShouldReturnBestStrikingRates_With6sAnd4s() throws IOException, IPLAnalyserException {
+		Assert.assertEquals("Andre Russell",
+				new IPLAnalyser().getBestStrikingRatesWith6sAnd4s(MOST_RUNS_FILE_PATH).get(0).player);
 	}
 
 }
