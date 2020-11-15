@@ -145,4 +145,11 @@ public class IPLAnalyserTest {
 		Assert.assertEquals("Andre Russell", iplAnalyser.getBestAllRounders().get(0));
 	}
 
+	@Test
+	public void givenMostRunsCSV_ShouldReturnMaxHundreds_WithBestBattingAvgs()
+			throws IOException, IPLAnalyserException {
+		Assert.assertEquals("David Warner ",
+				iplAnalyser.maximum100sWithBestBattingAverage(MOST_RUNS_FILE_PATH).get(0).player);
+	}
+
 }
